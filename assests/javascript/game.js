@@ -46,15 +46,17 @@ var wordInArray = [];
 var match;
 var lettersInArray = wordToGuess.split("");
 var guess;
-var lines;
+var lines = [];
 
 console.log(lettersInArray);
 // This function is run whenever the user presses a key.
 lettersInArray.forEach(letter => {
-  lines.concat("_");
-  var html3 = "_ ";
-  document.querySelector("#game").innerHTML = html3.concat;
+  lines.push(" _ ");
 });
+console.log(lines);
+
+var html3 = lines.join(" ");
+document.querySelector("#game").innerHTML = html3;
 
 document.onkeyup = function(event) {
   var userGuess = event.key.toLowerCase().toString();
