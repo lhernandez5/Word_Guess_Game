@@ -47,8 +47,11 @@ var match;
 var lettersInArray = wordToGuess.split("");
 var guess;
 var lines = [];
+var lettersObj = {};
+var endGame = false;
 
 console.log(lettersInArray);
+
 // This function is run whenever the user presses a key.
 lettersInArray.forEach(letter => {
   lines.push(" _ ");
@@ -56,36 +59,72 @@ lettersInArray.forEach(letter => {
 console.log(lines);
 
 var html3 = lines.join(" ");
-document.querySelector("#game").innerHTML = html3;
+document.querySelector("#linesForLetters").innerHTML = html3;
+
+for (var i = 0; i < lettersInArray.length; i++) {
+  var num = lettersInArray[i];
+  lettersObj[num] = lettersObj[num] ? lettersObj[num] + 1 : 1;
+}
 
 document.onkeyup = function(event) {
-  var userGuess = event.key.toLowerCase().toString();
-  console.log("this is the guess == " + userGuess);
-  //This for each loop checks that the input is a letter
+  if (endGame === false) {//WORK ON ADDING OPTION TO GUESS ANOTHER WORD 
+    var userGuess = event.key.toLowerCase();
+    console.log("this is the guess == " + userGuess);
 
-  alphabet.forEach(function(element) {
-    if (userGuess === element) {
-      // console.log("Letter:  " + element+" ===="+userGuess);
-      // match=true
-      return (match = true);
-    }
-  });
+    //This for each loop checks that the input is a letter
+    alphabet.forEach(function(element) {
+      if (userGuess === element) {
+        match = true;
+      }
+    });
 
-  if (match === true) {
-    if (lettersInArray.includes(userGuess)) {
-      lettersGuessed.push(userGuess);
-      numberGuessesLeft++;
-      console.log("RIGHT!!" + userGuess);
-      var html = "<p>You chose Correct!!!!! ===>" + userGuess + "</p>";
-      document.querySelector("#game").innerHTML = html;
-    } else if (!lettersInArray.includes(userGuess)) {
-      console.log("WRONG" + userGuess);
-      wrongLetters.push(userGuess);
-      numberGuessesLeft--;
-      var html2 = "<p>Try Again ===>" + userGuess + "</p>";
-      document.querySelector("#game").innerHTML = html2;
+    //IS LETTER IN ALPHABET
+    if (match === true) {
+      //GUESS WAS CORRECT
+      if (lettersInArray.includes(userGuess)) {
+        var html = "<p>CORRECT! ===>" + userGuess + "</p>";
+        document.querySelector("#game").innerHTML = html;
+        //PLACE LETTER IN PLACE OF DASH LINE
+        for (var l = 0; l < lettersInArray.length; l++) {
+          if (lettersInArray[l] === userGuess) {
+            lines[l] = userGuess;
+            console.log("RIGHT!!" + lines[l]);
+          } else {
+            lines[l] = lines[l];
+          }
+        }
+        console.log(lines);
+
+        //GUESS WAS WRONG
+      } else if (!lettersInArray.includes(userGuess)) {//have to work on not considering a double letter as another point deduction
+
+        if(wrongLetters.includes(userGuess)===true){
+          console.log("WRONG ANSWER TWICE" + userGuess);
+        }else{
+        wrongLetters.push(userGuess);//have to work on not adding a letter twice 
+        numberGuessesLeft--;}
+        if (numberGuessesLeft >= 1) {
+          var html2 = "<p>Try Again ===>" + userGuess + "</p>";
+          console.log(numberGuessesLeft);
+          document.querySelector("#game").innerHTML = html2;
+        } else if (numberGuessesLeft === 0) {
+          var html2 = "<p>Try Again ===>" + userGuess + "</p>";
+          console.log("sorry but you do not get another guess");
+          console.log("END GAME");
+          endGame = true;
+        }
+
+/////////if you have to delete a slash it will be this one
+      
+
+      }
     }
+    //DETERMINES IF A POINT IS EARNED FOR GUESSING CORRECTLY
+    if (lines.includes(" _ ")==false) {
+      console.log("YOU WIN A POINT!!!!!!!!!!!");
+      //endGame = true;
+      wins++;      
+    }
+
   }
-  console.log(lettersGuessed);
-  console.log(wrongLetters);
 };
