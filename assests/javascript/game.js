@@ -46,20 +46,48 @@ var numberGuessesLeft = 12;
 var wordInArray = [];
 var match;
 var linesFilled = [];
-var wins = 0;
+var wins=0;
 
 var wordToGuess = words[Math.floor(Math.random() * words.length)];
 var lettersInArray = wordToGuess.split("");
 
+
 var solved;
 
+// lettersInArray.forEach(letter => {
+//   lines.push(" _ ");
+// });
+function generateNew() {
+  // if (solved===true){
+  // wins++;
+  wordToGuess = words[Math.floor(Math.random() * words.length)];
+  lettersInArray=[];
+  lines=[];
+  lettersInArray = wordToGuess.split("");
+  
+  lettersInArray.forEach(letter => {
+      lines.push(" _ ");
+    });
 
-lettersInArray.forEach(letter => {
-  lines.push(" _ ");
-});
+  // wins++;
+  console.log(lettersInArray);
+  numberGuessesLeft = 12;
+  wrongLetters = [];
+  endGame = false;
+};
 
-// This function is run whenever the user presses a key.
+// for(var k=0; k<lettersInArray.length; k++){
+//   lines.push(" _ ");
+// }
+
+document.querySelector(".display-4").innerHTML =
+  "<p>Food in the Background Hangman!</p>";
+document.querySelector("#startMsg").innerHTML =
+  "<p>Press your first guess to get started! The words that will be populated will be inspired by the images on the background!</p>";
+
+  // This function is run whenever the user presses a key.
 document.onkeyup = function(event) {
+  
   //WORK ON ADDING OPTION TO GUESS ANOTHER WORD
   var userGuess = event.key.toLowerCase();
 
@@ -105,13 +133,7 @@ document.onkeyup = function(event) {
     }
   }
 
-  if (lines.includes(" _ ") === false) {
-    return solved = true;
-    // generateNew();
-    // wins++;
-    // numberGuessesLeft = 12;
-    // wrongLetters = [];
-  }
+  
 
   var output =
     "<p>wins: " +
@@ -129,14 +151,15 @@ document.onkeyup = function(event) {
   +"</p>";
 
   document.querySelector("#game").innerHTML = output;
+
+
+  if (lines.includes(" _ ") === false) {
+    endGame=true;
+    wins++;
+    generateNew();
+    // numberGuessesLeft = 12;
+    // wrongLetters = [];
+  }
+
 };
 
-function generateNew(solved) {
-  if (solved===true){
-  wordToGuess = words[Math.floor(Math.random() * words.length)];
-  lettersInArray = wordToGuess.split("");
-  // wins++;
-  numberGuessesLeft = 12;
-  wrongLetters = [];
-  endGame = false;}
-}
