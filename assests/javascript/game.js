@@ -33,54 +33,47 @@ var words = [
   "pineapple",
   "cilantro",
   "avocado",
-  "omnivore",
+  "oats",
   "hazelnut",
-  "rice",
-  "tortillas",
-  "blueberries"
+  "mango",
+  "apples",
+  "blueberries",
+  "beans"
 ];
 
 var wordToGuess = words[Math.floor(Math.random() * words.length)];
-var wins = 0;
+var lettersInArray = wordToGuess.split("");
+var lines = [];
+var endGame = false;
 var wrongLetters = [];
 var numberGuessesLeft = 12;
-var lettersGuessed = [];
+// var lettersGuessed = [];
 var wordInArray = [];
 var match;
-var lettersInArray = wordToGuess.split("");
-var guess;
-var lines = [];
-var lettersObj = {};
-var endGame = false;
+var linesFilled = [];
+var wins = 0;
 
-console.log(lettersInArray);
 
-// This function is run whenever the user presses a key.
+
 lettersInArray.forEach(letter => {
   lines.push(" _ ");
 });
-console.log(lines);
 
-for (var i = 0; i < lettersInArray.length; i++) {
-  var num = lettersInArray[i];
-  lettersObj[num] = lettersObj[num] ? lettersObj[num] + 1 : 1;
-}
 
+// This function is run whenever the user presses a key.
 document.onkeyup = function(event) {
   if (endGame === false) {
     //WORK ON ADDING OPTION TO GUESS ANOTHER WORD
     var userGuess = event.key.toLowerCase();
-    var linesFilled;
-    console.log("this is the guess == " + userGuess);
 
-    lettersGuessed.push(userGuess);
+    // lettersGuessed.push(userGuess);
 
     //This for each loop checks that the input is a letter
-    alphabet.forEach(function(element) {
-      if (userGuess === element) {
-        match = true;
-      }
-    });
+    if (alphabet.includes(userGuess)) {
+      match = true;
+    } else {
+      match = false;
+    }
 
     //IS LETTER IN ALPHABET
     if (match === true) {
@@ -90,61 +83,65 @@ document.onkeyup = function(event) {
         for (var l = 0; l < lettersInArray.length; l++) {
           if (lettersInArray[l] === userGuess) {
             lines[l] = userGuess;
-            var fillIn = lines.fill(userGuess, lines[l], lines[l]);
-            console.log("this is the array" + fillIn);
-            linesFilled = fillIn.join(" ");
-            // var html2 =
-            // "<p>Current Word</p>"+"<p>" +fillIn.join(" ") +"</p>";
-            
-              var html2 = "<p>Current Word </p><p>" + linesFilled + "</p>";
-            
+            lines = lines.fill(userGuess, lines[l], lines[l]);
+            linesFilled = lines.join(" ");
           }
         }
-        //GUESS WAS WRONG
-      } else if (!lettersInArray.includes(userGuess)) {
-        //what to do with when the letters are populated
-        if(linesFilled === undefined){
-          break;
-        }
-        if (wrongLetters.includes(userGuess) === true) {
-          console.log("WRONG ANSWER TWICE" + userGuess);
-        } else {
-          wrongLetters.push(userGuess); //have to work on not adding a letter twice
-          numberGuessesLeft--;
-        }
-        if (numberGuessesLeft === 0) {
-          console.log("sorry but you do not get another guess");
-          console.log("END GAME");
+          if(lines.includes(" _ ") === false){
+          wins++;
           endGame = true;
+          numberGuessesLeft = 12;
+          // wrongLetters = wrongLetters.fill(0, wrongLetters.length - 1);
+          wrongLetters = [];
         }
-                  
-            /////////if you have to delete a slash it will be this one
+
+        // if (lines.toString === lettersInArray.toString) {
+        // for (var i = 0; i < lines.length; i++) {
+        //   if (lines[i] === lettersInArray[i])
+        //   wins++;
+        //   endGame = true;
+        // }
+        // }
+      }
+
+      //GUESS WAS WRONG
+    } else if (!lettersInArray.includes(userGuess)) {
+      //what to do with when the letters are populated
+      if (linesFilled === undefined) {
+      }
+      if (wrongLetters.includes(userGuess) === true) {
+        console.log("WRONG ANSWER TWICE" + userGuess);
+      } else {
+        wrongLetters.push(userGuess); //have to work on not adding a letter twice
+        console.log(wrongLetters);
+        numberGuessesLeft--;
+      }
+      if (numberGuessesLeft === 0) {
+        console.log("sorry but you do not get another guess");
+        console.log("END GAME");
+        endGame = true;
       }
     }
-    //DETERMINES IF A POINT IS EARNED FOR GUESSING CORRECTLY
-    if (lines.includes(" _ ") == false) {
-      console.log("YOU WIN A POINT!!!!!!!!!!!");
-      endGame = true;
-      wins++;
-    }
+  
+}
+  var output =
+    "<p>wins: " +
+    wins +
+    "</p>" +
+    "<p>Number of Guesses Remaining: " +
+    numberGuessesLeft +
+    "</p>" +
+    "<p>Letters You Have Choosen: " +
+    wrongLetters +
+    "</p>";
 
-    var html4 =
-      "<p>wins: " +
-      wins +
-      "</p>" +
-      "<p>Number of Guesses Remaining: " +
-      numberGuessesLeft +
-      "</p>" +
-      "<p>Letters You Have Choosen: " +
-      wrongLetters +
-      "</p>";
-
-    // if (linesFilled === undefined) {
-    //   return "";
-    // } else {
-    //   var html2 = "<p>Current Word </p><p>" + linesFilled + "</p>";
-    // }
-    // Set the inner HTML contents of the #game div to our html string
-    document.querySelector("#game").innerHTML = html4 + html2;
-  }
+  document.querySelector("#game").innerHTML = output + linesFilled;
 };
+
+// function reset() {
+//     generateNew();
+//     if(lettersInArray.includes(" _ ")){
+//     numberGuessesLeft = 12;
+//     endGame = false;
+//     wrongLetters = [];}
+// }
