@@ -35,7 +35,6 @@ var words = [
   "broccoli",
   "seeds",
   "lime",
-  "mango",
   "nuts",
   "herbs"
 ];
@@ -49,9 +48,11 @@ var match;
 var linesFilled = [];
 var wins = 0;
 
-
 var wordToGuess = words[Math.floor(Math.random() * words.length)];
 var lettersInArray = wordToGuess.split("");
+
+var solved;
+
 
 lettersInArray.forEach(letter => {
   lines.push(" _ ");
@@ -70,7 +71,6 @@ document.onkeyup = function(event) {
       match = false;
     }
 
-
     //IS LETTER IN ALPHABET
     if (match === true) {
       //GUESS WAS CORRECT
@@ -81,14 +81,13 @@ document.onkeyup = function(event) {
           if (lettersInArray[l] === userGuess) {
             lines[l] = userGuess;
             lines = lines.fill(userGuess, lines[l], lines[l]);
-            linesFilled = lines.join(" ");
           }
-        }
-        if (lines.includes(" _ ") === false) {
-          wins++;
-          endGame = true;
-          numberGuessesLeft = 12;
-          wrongLetters = [];
+          //   if (lines.includes(" _ ") === false) {
+          //   wins++;
+          //   endGame = true;
+          //   numberGuessesLeft = 12;
+          //   wrongLetters = [];
+          // }
         }
 
         //ANSWER IS NOT IN ARRAY
@@ -105,6 +104,15 @@ document.onkeyup = function(event) {
       }
     }
   }
+
+  if (lines.includes(" _ ") === false) {
+    return solved = true;
+    // generateNew();
+    // wins++;
+    // numberGuessesLeft = 12;
+    // wrongLetters = [];
+  }
+
   var output =
     "<p>wins: " +
     wins +
@@ -117,8 +125,18 @@ document.onkeyup = function(event) {
     "</p>" +
     "<p>Current Word: <p>" +
     "<p>" +
-    lines.join(" "); +
-    "</p>";
+    lines.join(" ");
+  +"</p>";
 
   document.querySelector("#game").innerHTML = output;
 };
+
+function generateNew(solved) {
+  if (solved===true){
+  wordToGuess = words[Math.floor(Math.random() * words.length)];
+  lettersInArray = wordToGuess.split("");
+  // wins++;
+  numberGuessesLeft = 12;
+  wrongLetters = [];
+  endGame = false;}
+}
