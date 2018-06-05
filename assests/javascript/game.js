@@ -29,29 +29,29 @@ var alphabet = [
 
 // Creates an array that lists out all of the options of words for computer
 var words = [
-  "squash",
-  "pineapple",
-  "cilantro",
-  "avocado",
-  "oats",
-  "hazelnut",
+  "strawberry",
+  "lemon",
+  "kiwi",
+  "broccoli",
+  "seeds",
+  "lime",
   "mango",
-  "apples",
-  "blueberries",
-  "beans"
+  "nuts",
+  "herbs"
 ];
 
-var wordToGuess = words[Math.floor(Math.random() * words.length)];
-var lettersInArray = wordToGuess.split("");
 var lines = [];
 var endGame = false;
 var wrongLetters = [];
 var numberGuessesLeft = 12;
-// var lettersGuessed = [];
 var wordInArray = [];
 var match;
 var linesFilled = [];
 var wins = 0;
+
+
+var wordToGuess = words[Math.floor(Math.random() * words.length)];
+var lettersInArray = wordToGuess.split("");
 
 lettersInArray.forEach(letter => {
   lines.push(" _ ");
@@ -59,12 +59,10 @@ lettersInArray.forEach(letter => {
 
 // This function is run whenever the user presses a key.
 document.onkeyup = function(event) {
+  //WORK ON ADDING OPTION TO GUESS ANOTHER WORD
+  var userGuess = event.key.toLowerCase();
+
   if (endGame === false) {
-    //WORK ON ADDING OPTION TO GUESS ANOTHER WORD
-    var userGuess = event.key.toLowerCase();
-
-    // lettersGuessed.push(userGuess);
-
     //This for each loop checks that the input is a letter
     if (alphabet.includes(userGuess)) {
       match = true;
@@ -72,9 +70,11 @@ document.onkeyup = function(event) {
       match = false;
     }
 
+
     //IS LETTER IN ALPHABET
     if (match === true) {
       //GUESS WAS CORRECT
+
       if (lettersInArray.includes(userGuess)) {
         //PLACE LETTER IN PLACE OF DASH LINE
         for (var l = 0; l < lettersInArray.length; l++) {
@@ -88,32 +88,19 @@ document.onkeyup = function(event) {
           wins++;
           endGame = true;
           numberGuessesLeft = 12;
-          // wrongLetters = wrongLetters.fill(0, wrongLetters.length - 1);
           wrongLetters = [];
         }
 
-        // if (lines.toString === lettersInArray.toString) {
-        // for (var i = 0; i < lines.length; i++) {
-        //   if (lines[i] === lettersInArray[i])
-        //   wins++;
-        //   endGame = true;
-        // }
-        // }
+        //ANSWER IS NOT IN ARRAY
       } else if (!lettersInArray.includes(userGuess)) {
-        //what to do with when the letters are populated
-        if (linesFilled === undefined) {
-        }
         if (wrongLetters.includes(userGuess) === true) {
           console.log("WRONG ANSWER TWICE" + userGuess);
-        } else {
+        } else if (wrongLetters.includes(userGuess) === false) {
           wrongLetters.push(userGuess); //have to work on not adding a letter twice
-          console.log(wrongLetters);
           numberGuessesLeft--;
-        }
-        if (numberGuessesLeft === 0) {
-          console.log("sorry but you do not get another guess");
-          console.log("END GAME");
-          endGame = true;
+          if (numberGuessesLeft === 0) {
+            endGame = true;
+          }
         }
       }
     }
@@ -128,7 +115,8 @@ document.onkeyup = function(event) {
     "<p>Letters You Have Choosen: " +
     wrongLetters +
     "</p>" +
-    "<p>Current Word: <p>" +"<p>"+
+    "<p>Current Word: <p>" +
+    "<p>" +
     linesFilled +
     "</p>";
 

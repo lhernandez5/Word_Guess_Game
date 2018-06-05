@@ -1,19 +1,47 @@
 body {
+  background-image: url(../images/fruits.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .display-4 {
   font-family: "Monoton", cursive;
   color: orange;
   text-align: center;
+  font-size: 60px;
 }
 .jumbotron {
-  background-image: url(../images/sun-pattern/sun-pattern.png);
+  opacity: 0.9;
+  border: 20px burlywood solid;
+  border-style: outset;
 }
-p {
+#startMsg {
   text-align: center;
+  font-size: 30px;
+  color: olivedrab;
+  opacity: 0.9;
+  background: whitesmoke;
+  border: 20px burlywood solid;
+  border-style: outset;
+}
+.col-md-8 {
+  text-align: center;
+  font-size: 30px;
+  color: olivedrab;
+  /* opacity: 0.9;
+  background: whitesmoke; */
+}
+#game {
+  text-align: center;
+  font-size: 30px;
+  color: olivedrab;
+  opacity: 0.9;
+  background: whitesmoke;
+  border: 20px burlywood solid;
+  border-style: outset;
 }
 btn.btn-primary.btn-lg {
   text-align: center;
 }
-#linesForLetters{
+#linesForLetters {
   text-align: center;
 }
