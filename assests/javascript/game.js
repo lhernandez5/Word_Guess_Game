@@ -112,12 +112,12 @@ document.onkeyup = function(event) {
     "<p>Number of Guesses Remaining: " +
     numberGuessesLeft +
     "</p>" +
-    "<p>Letters You Have Choosen: " +
+    "<p>Wrong Letters: " +
     wrongLetters +
     "</p>" +
     "<p>Current Word: <p>" +
     "<p>" +
-    linesFilled +
+    lines.join(" "); +
     "</p>";
 
   document.querySelector("#game").innerHTML = output;
