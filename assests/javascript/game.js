@@ -53,12 +53,9 @@ var match;
 var linesFilled = [];
 var wins = 0;
 
-
-
 lettersInArray.forEach(letter => {
   lines.push(" _ ");
 });
-
 
 // This function is run whenever the user presses a key.
 document.onkeyup = function(event) {
@@ -87,7 +84,7 @@ document.onkeyup = function(event) {
             linesFilled = lines.join(" ");
           }
         }
-          if(lines.includes(" _ ") === false){
+        if (lines.includes(" _ ") === false) {
           wins++;
           endGame = true;
           numberGuessesLeft = 12;
@@ -102,28 +99,25 @@ document.onkeyup = function(event) {
         //   endGame = true;
         // }
         // }
-      }
-
-      //GUESS WAS WRONG
-    } else if (!lettersInArray.includes(userGuess)) {
-      //what to do with when the letters are populated
-      if (linesFilled === undefined) {
-      }
-      if (wrongLetters.includes(userGuess) === true) {
-        console.log("WRONG ANSWER TWICE" + userGuess);
-      } else {
-        wrongLetters.push(userGuess); //have to work on not adding a letter twice
-        console.log(wrongLetters);
-        numberGuessesLeft--;
-      }
-      if (numberGuessesLeft === 0) {
-        console.log("sorry but you do not get another guess");
-        console.log("END GAME");
-        endGame = true;
+      } else if (!lettersInArray.includes(userGuess)) {
+        //what to do with when the letters are populated
+        if (linesFilled === undefined) {
+        }
+        if (wrongLetters.includes(userGuess) === true) {
+          console.log("WRONG ANSWER TWICE" + userGuess);
+        } else {
+          wrongLetters.push(userGuess); //have to work on not adding a letter twice
+          console.log(wrongLetters);
+          numberGuessesLeft--;
+        }
+        if (numberGuessesLeft === 0) {
+          console.log("sorry but you do not get another guess");
+          console.log("END GAME");
+          endGame = true;
+        }
       }
     }
-  
-}
+  }
   var output =
     "<p>wins: " +
     wins +
@@ -133,15 +127,10 @@ document.onkeyup = function(event) {
     "</p>" +
     "<p>Letters You Have Choosen: " +
     wrongLetters +
+    "</p>" +
+    "<p>Current Word: <p>" +"<p>"+
+    linesFilled +
     "</p>";
 
-  document.querySelector("#game").innerHTML = output + linesFilled;
+  document.querySelector("#game").innerHTML = output;
 };
-
-// function reset() {
-//     generateNew();
-//     if(lettersInArray.includes(" _ ")){
-//     numberGuessesLeft = 12;
-//     endGame = false;
-//     wrongLetters = [];}
-// }
