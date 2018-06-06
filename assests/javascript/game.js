@@ -46,48 +46,33 @@ var numberGuessesLeft = 12;
 var wordInArray = [];
 var match;
 var linesFilled = [];
-var wins=0;
-
+var wins = -1;
 var wordToGuess = words[Math.floor(Math.random() * words.length)];
 var lettersInArray = wordToGuess.split("");
 
-
-var solved;
-
-// lettersInArray.forEach(letter => {
-//   lines.push(" _ ");
-// });
 function generateNew() {
-  // if (solved===true){
   // wins++;
   wordToGuess = words[Math.floor(Math.random() * words.length)];
-  lettersInArray=[];
-  lines=[];
+  lettersInArray = [];
+  lines = [];
   lettersInArray = wordToGuess.split("");
-  
   lettersInArray.forEach(letter => {
-      lines.push(" _ ");
-    });
-
-  // wins++;
+    lines.push(" _ ");
+  });
   console.log(lettersInArray);
   numberGuessesLeft = 12;
   wrongLetters = [];
   endGame = false;
-};
-
-// for(var k=0; k<lettersInArray.length; k++){
-//   lines.push(" _ ");
-// }
+}
 
 document.querySelector(".display-4").innerHTML =
   "<p>Food in the Background Hangman!</p>";
 document.querySelector("#startMsg").innerHTML =
   "<p>Press your first guess to get started! The words that will be populated will be inspired by the images on the background!</p>";
 
-  // This function is run whenever the user presses a key.
+// This function is run whenever the user presses a key.
 document.onkeyup = function(event) {
-  
+
   //WORK ON ADDING OPTION TO GUESS ANOTHER WORD
   var userGuess = event.key.toLowerCase();
 
@@ -101,8 +86,8 @@ document.onkeyup = function(event) {
 
     //IS LETTER IN ALPHABET
     if (match === true) {
-      //GUESS WAS CORRECT
 
+      //GUESS WAS CORRECT
       if (lettersInArray.includes(userGuess)) {
         //PLACE LETTER IN PLACE OF DASH LINE
         for (var l = 0; l < lettersInArray.length; l++) {
@@ -110,12 +95,6 @@ document.onkeyup = function(event) {
             lines[l] = userGuess;
             lines = lines.fill(userGuess, lines[l], lines[l]);
           }
-          //   if (lines.includes(" _ ") === false) {
-          //   wins++;
-          //   endGame = true;
-          //   numberGuessesLeft = 12;
-          //   wrongLetters = [];
-          // }
         }
 
         //ANSWER IS NOT IN ARRAY
@@ -133,33 +112,17 @@ document.onkeyup = function(event) {
     }
   }
 
-  
-
   var output =
-    "<p>wins: " +
-    wins +
-    "</p>" +
-    "<p>Number of Guesses Remaining: " +
-    numberGuessesLeft +
-    "</p>" +
-    "<p>Wrong Letters: " +
-    wrongLetters +
-    "</p>" +
-    "<p>Current Word: <p>" +
-    "<p>" +
-    lines.join(" ");
-  +"</p>";
+    "<p>wins: " + wins +"</p>"+
+    "<p>Number of Guesses Remaining: " + numberGuessesLeft + "</p>" +
+    "<p>Wrong Letters: " + wrongLetters +"</p>" +
+    "<p>Current Word: <p>" + "<p>" +lines.join(" ")+"</p>";
 
   document.querySelector("#game").innerHTML = output;
 
-
   if (lines.includes(" _ ") === false) {
-    endGame=true;
+    endGame = true;
     wins++;
     generateNew();
-    // numberGuessesLeft = 12;
-    // wrongLetters = [];
   }
-
 };
-
