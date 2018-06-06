@@ -68,11 +68,10 @@ function generateNew() {
 document.querySelector(".display-4").innerHTML =
   "<p>Food in the Background Hangman!</p>";
 document.querySelector("#startMsg").innerHTML =
-  "<p>Press your first guess to get started! The words that will be populated will be inspired by the images on the background!</p>";
+  "<p>Press a key for your first guess to get started! Words in this game are inspired by the images on the background!</p>";
 
 // This function is run whenever the user presses a key.
 document.onkeyup = function(event) {
-
   //WORK ON ADDING OPTION TO GUESS ANOTHER WORD
   var userGuess = event.key.toLowerCase();
 
@@ -86,7 +85,6 @@ document.onkeyup = function(event) {
 
     //IS LETTER IN ALPHABET
     if (match === true) {
-
       //GUESS WAS CORRECT
       if (lettersInArray.includes(userGuess)) {
         //PLACE LETTER IN PLACE OF DASH LINE
@@ -111,22 +109,30 @@ document.onkeyup = function(event) {
       }
     }
   }
-if (lines.includes(" _ ") === false) {
+  if (lines.includes(" _ ") === false) {
     endGame = true;
-    if (wins===-1){
-      wins=0;
-    }else{
+    if (wins === -1) {
+      wins = 0;
+    } else {
       wins++;
     }
-    
+
     generateNew();
   }
   var output =
-    "<p>wins: " + wins +"</p>"+
-    "<p>Number of Guesses Remaining: " + numberGuessesLeft + "</p>" +
-    "<p>Wrong Letters: " + wrongLetters +"</p>" +
-    "<p>Current Word: <p>" + "<p>" +lines.join(" ")+"</p>";
+    "<p>wins: " +
+    wins +
+    "</p>" +
+    "<p>Number of Guesses Remaining: " +
+    numberGuessesLeft +
+    "</p>" +
+    "<p>Wrong Letters: " +
+    wrongLetters +
+    "</p>" +
+    "<p>Current Word: <p>" +
+    "<p>" +
+    lines.join(" ") +
+    "</p>";
 
   document.querySelector("#game").innerHTML = output;
-  
 };
