@@ -111,7 +111,16 @@ document.onkeyup = function(event) {
       }
     }
   }
-
+if (lines.includes(" _ ") === false) {
+    endGame = true;
+    if (wins===-1){
+      wins=0;
+    }else{
+      wins++;
+    }
+    
+    generateNew();
+  }
   var output =
     "<p>wins: " + wins +"</p>"+
     "<p>Number of Guesses Remaining: " + numberGuessesLeft + "</p>" +
@@ -119,10 +128,5 @@ document.onkeyup = function(event) {
     "<p>Current Word: <p>" + "<p>" +lines.join(" ")+"</p>";
 
   document.querySelector("#game").innerHTML = output;
-
-  if (lines.includes(" _ ") === false) {
-    endGame = true;
-    wins++;
-    generateNew();
-  }
+  
 };
