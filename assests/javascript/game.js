@@ -51,7 +51,6 @@ var wordToGuess = words[Math.floor(Math.random() * words.length)];
 var lettersInArray = wordToGuess.split("");
 
 function generateNew() {
-  // wins++;
   wordToGuess = words[Math.floor(Math.random() * words.length)];
   lettersInArray = [];
   lines = [];
@@ -116,7 +115,6 @@ document.onkeyup = function(event) {
     } else {
       wins++;
     }
-
     generateNew();
   }
   var output =
@@ -136,3 +134,4 @@ document.onkeyup = function(event) {
 
   document.querySelector("#game").innerHTML = output;
 };
+
