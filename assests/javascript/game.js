@@ -1,3 +1,4 @@
+
 var alphabet = [
   "a",
   "b",
@@ -68,6 +69,10 @@ document.querySelector(".display-4").innerHTML =
   "<p>Food in the Background Hangman!</p>";
 document.querySelector("#startMsg").innerHTML =
   "<p>Press a key for your first guess to get started! Words in this game are inspired by the images on the background!</p>";
+
+$(".btn-success").on("click",function(){
+
+});
 
 // This function is run whenever the user presses a key.
 document.onkeyup = function(event) {
