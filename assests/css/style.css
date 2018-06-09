@@ -38,6 +38,7 @@ body {
   background: whitesmoke;
   border: 20px burlywood solid;
   border-style: outset;
+  margin-bottom: 30%;
 }
 btn.btn-primary.btn-lg {
   text-align: center;
