@@ -1,3 +1,11 @@
+$(".display-4").html("<p>Food in the Background Hangman!</p>");
+$("#startMsg").html("<p>Press start to get started!</p>");
+$("#game").hide();
+$(document).on("click", ".btn.btn-success", function(){
+  $(".btn.btn-success").hide();
+  $("#game").hide();
+  $("#startMsg").html("<p>Words to guess are inspired by the images on the background!<br>Examples: strawberry,lemon, etc.<br>Press any key to get started!</p>");
+
 
 var alphabet = [
   "a",
@@ -65,17 +73,12 @@ function generateNew() {
   endGame = false;
 }
 
-document.querySelector(".display-4").innerHTML =
-  "<p>Food in the Background Hangman!</p>";
-document.querySelector("#startMsg").innerHTML =
-  "<p>Press a key for your first guess to get started! Words in this game are inspired by the images on the background!</p>";
 
-$(".btn-success").on("click",function(){
 
-});
 
 // This function is run whenever the user presses a key.
 document.onkeyup = function(event) {
+  $("#game").show();
   //WORK ON ADDING OPTION TO GUESS ANOTHER WORD
   var userGuess = event.key.toLowerCase();
 
@@ -137,6 +140,7 @@ document.onkeyup = function(event) {
     lines.join(" ") +
     "</p>";
 
-  document.querySelector("#game").innerHTML = output;
+  $("#game").html(output);
 };
 
+});
